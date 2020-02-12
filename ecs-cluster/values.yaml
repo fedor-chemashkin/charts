@@ -104,6 +104,20 @@ storageServer:
     # Name of the storage class that storage should be provisioned from
     # storageClassName:
 
+    # Enable Cold Storage feature (if data won't be accessed frequently). This can't be disabled later
+    # CS can be enabled only if storageServer.replicas >= 8
+    # coldStorageEnabled: false
+
+    erasureCoding:
+      # Data blocks count for erasure coding can be tuned with the values below. "protected: false" required for this.
+      # If values are not set, they will be calculated automatically.
+      # dataBlocks: 12
+      # codeBlocks: 4
+      # Manually set values must conform the following formulas:
+      # dataBlocks + codeBlocks <= (storageServer.replicas - 1) * codeBlocks
+      # dataBlocks + codeBlocks <= 16
+      # 60 % dataBlocks == 0
+
 # The ECS chunk manager configuration specification
 chunkManager:
 
