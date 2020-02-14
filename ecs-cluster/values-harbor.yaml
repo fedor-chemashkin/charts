@@ -95,7 +95,7 @@ storageServer:
 
     erasureCoding:
       # Data blocks count for erasure coding can be tuned with the values below. "protected: false" required for this.
-      # If values are not set, they will be calculated automatically.
+      # If values are not set, they will be calculated automatically (3 SS replicas: 3db/3cb, 4: 6db/3cb, 5+: 12/4).
       # dataBlocks: 12
       # codeBlocks: 4
       # Manually set values must conform the following formulas:
