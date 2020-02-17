@@ -133,7 +133,7 @@ data:
           {
             "command": [
               "/bin/bash",
-              "-c"
+              "-c",
               "./run-sonobuoy-test.sh"
             ],
             "env": [
