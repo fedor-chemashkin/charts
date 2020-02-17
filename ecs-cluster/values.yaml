@@ -104,10 +104,6 @@ storageServer:
     # Name of the storage class that storage should be provisioned from
     # storageClassName:
 
-    # Enable Cold Storage feature (if data won't be accessed frequently). This can't be disabled later
-    # CS can be enabled only if storageServer.replicas >= 8
-    # coldStorageEnabled: false
-
     erasureCoding:
       # Data blocks count for erasure coding can be tuned with the values below. "protected: false" required for this.
       # If values are not set, they will be calculated automatically (3 SS replicas: 3db/3cb, 4: 6db/3cb, 5+: 12/4).
