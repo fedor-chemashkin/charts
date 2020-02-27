@@ -27,9 +27,7 @@ spec:
                 - name: |-
                      {{.Release.Name}}-fio-config-volume
                   mountPath: /etc/config
-              command: ["/bin/sh", "-c"]
-              args: ["chmod +x /usr/local/bin/*.sh;
-                      sh /usr/local/bin/run-fio-test.sh;"]
+              command: ["/usr/local/bin/run-fio-test.sh"]
               env:
                 - name: FIO_TEST_CONFIG_FILE
                   value: default-config.fio
@@ -38,7 +36,7 @@ spec:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: APP_NAME
-                  value: deos-mgr
+                  value: objectscale-manager
           volumes:
             - name: |-
                 {{.Release.Name}}-fio-test-volume
