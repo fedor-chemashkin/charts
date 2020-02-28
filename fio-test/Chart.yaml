@@ -1,6 +1,6 @@
 ---
 apiVersion: v1
-appVersion: 3.14.0
+appVersion: 3.14.1
 description: A Helm chart for Kubernetes Applications Health Check Tools using FIO
   for persistent volume tests
 name: fio-test
