@@ -46,6 +46,12 @@ rules:
   - nodes 
   verbs: ["get", "watch", "list"]
 - apiGroups:
+  - decks.ecs.dellemc.com
+  resources:
+  - "*"
+  verbs:
+  - "*"
+- apiGroups:
   - ecs.dellemc.com
   resources:
   - "*"
@@ -58,6 +64,7 @@ rules:
   - services
   - endpoints
   - persistentvolumeclaims
+  - persistentvolumes
   - events
   - configmaps
   - secrets
