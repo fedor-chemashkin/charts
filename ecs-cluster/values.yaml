@@ -21,8 +21,8 @@ pullPolicy: Always
 # Override the default number of replicas which taken according to performance profile for each service
 # replicas: 4
 
-# The default performance profile for the ECS cluster. Valid values are "Micro",
-# "Small", and "Large"
+# The default performance profile for the ECS cluster. 
+# Valid values are "Micro", "Small", and "Large"
 performanceProfile: Small
 
 # Name of the storage class that all PVC should be provisioned from
@@ -49,7 +49,7 @@ atlas:
 
   image:
     repository: atlas
-    tag: 0.23.0
+    tag: v1.0.0
     pullPolicy: IfNotPresent
 
   persistence:
