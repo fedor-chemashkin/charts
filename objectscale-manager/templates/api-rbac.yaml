@@ -1,9 +1,9 @@
-{{- if eq .Values.VMwarePersistentService false }}
+{{- if .Values.VMwarePersistentService }}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: objectscale-operator
+  name: objectscale-api
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: objectscale-manager
@@ -28,7 +28,7 @@ kind: Role
 {{- end }}
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: objectscale-operator
+  name: objectscale-admin
   labels:
     app.kubernetes.io/name: objectscale-manager
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -46,6 +46,12 @@ rules:
   resources:
   - nodes 
   verbs: ["get", "watch", "list"]
+- apiGroups:
+  - decks.ecs.dellemc.com
+  resources:
+  - "*"
+  verbs:
+  - "*"
 - apiGroups:
   - ecs.dellemc.com
   resources:
@@ -127,7 +133,7 @@ kind: RoleBinding
 {{- end }}
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
-  name: service-account-objectscale-operator
+  name: service-account-objectscale-api
   labels:
     app.kubernetes.io/name: objectscale-manager
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -141,7 +147,7 @@ metadata:
     product: objectscale
 subjects:
 - kind: ServiceAccount
-  name: objectscale-operator
+  name: objectscale-api
 {{- if eq .Values.global.watchNamespace "" }}
   namespace: {{ .Release.Namespace }}
 {{- end }}
@@ -151,6 +157,6 @@ roleRef:
 {{- else }}
   kind: Role
 {{- end }}
-  name: objectscale-operator
+  name: objectscale-admin
   apiGroup: rbac.authorization.k8s.io
 {{- end }}
