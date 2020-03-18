@@ -1,9 +1,9 @@
 {{- if .Values.VMwarePersistentService }}
-{{- if eq .Values.global.watchNamespace "" }}
+  {{- if eq .Values.global.watchNamespace "" }}
 kind: ClusterRoleBinding
-{{- else }}
+  {{- else }}
 kind: RoleBinding
-{{- end }}
+  {{- end }}
 {{- else }}
 kind: RoleBinding
 {{- end }}
@@ -29,11 +29,11 @@ subjects:
 {{- end }}
 roleRef:
 {{- if .Values.VMwarePersistentService }}
-{{- if eq .Values.global.watchNamespace "" }}
+  {{- if eq .Values.global.watchNamespace "" }}
   kind: ClusterRole
-{{- else }}
+  {{- else }}
   kind: Role
-{{- end }}
+  {{- end }}
   name: objectscale-admin
 {{- else }}
   kind: Role
