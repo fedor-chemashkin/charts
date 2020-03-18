@@ -123,6 +123,25 @@ vSpherePlugin:
   port: 4443
   service:
     type: LoadBalancer
+    networkConnection:
+      # loadBalancerIP:     - load balancer IP of the connection
+      # nodePort:           - Node port addr of the connection
+      # externalHostnames:
+      # externalIPAddresses:
+      # externalIPv6Addresses:
+      inheritFromManager: false
+      certificate:
+        rootCA: |-
+          <insert root CA here>
+        # intermediateCA:
+        # certificatePassword:
+        # privateKey:
+      certificateSigningRequest:
+        # commonName:
+        email: insertyouremail@example.com.local
+        # names:
+        # keyAlgorithm:
+        # keySize:
 
 graphql:
   image:
