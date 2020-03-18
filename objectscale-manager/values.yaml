@@ -128,24 +128,24 @@ vSpherePlugin:
   service:
     type: LoadBalancer
     networkConnection:
-      # loadBalancerIP:     - load balancer IP of the connection
-      # nodePort:           - Node port addr of the connection
-      # externalHostnames:
-      # externalIPAddresses:
+      # loadBalancerIP:     # load balancer IP of the connection
+      # nodePort:           # Node port addr of the connection
+      # externalHostnames:  # examples: "vsphere-host1.example.com" or "vsph1,vsph2.local"
+      # externalIPAddresses: # ex. "10.11.12.13" or "10.20.30.40,10.15.20.25"
       # externalIPv6Addresses:
       inheritFromManager: false
       certificate:
-        rootCA: |-
+        rootCA: |-  # (optional)
           <insert root CA here>
-        # intermediateCA:
-        # certificatePassword:
-        # privateKey:
+        # intermediateCA:      # provide the intermediate CA here (optional)
+        # certificatePassword: # cert password (optional)
+        # privateKey:          # private key for this cert
       certificateSigningRequest:
-        # commonName:
+        # commonName:          # common Name for this CSR
         email: insertyouremail@example.com.local
-        # names:
-        # keyAlgorithm:
-        # keySize:
+        # names:               # names used to sign this cert
+        # keyAlgorithm:        # algorithm use to generate the key (ex. RSA)
+        # keySize:             # size of the key in bits (ex. 4096)
 
 graphql:
   image:

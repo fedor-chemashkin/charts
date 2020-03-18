@@ -263,6 +263,25 @@ s3:
 
   service:
     type: ClusterIP
+    networkConnection:
+      # loadBalancerIP:     # load balancer IP of the connection
+      # nodePort:           # Node port addr of the connection
+      # externalHostnames:  # examples: "vsphere-host1.example.com" or "vsph1,vsph2.local"
+      # externalIPAddresses: # ex. "10.11.12.13" or "10.20.30.40,10.15.20.25"
+      # externalIPv6Addresses:
+      inheritFromManager: true # true if objectstore deployments to inherit cert from obj-manager
+      certificate:
+        rootCA: |-  # (optional)
+          <insert root CA here>
+        # intermediateCA:      # provide the intermediate CA here (optional)
+        # certificatePassword: # cert password (optional)
+        # privateKey:          # private key for this cert
+      certificateSigningRequest:
+        # commonName:          # common Name for this CSR
+        email: insertyouremail@example.com.local
+        # names:               # names used to sign this cert
+        # keyAlgorithm:        # algorithm use to generate the key (ex. RSA)
+        # keySize:             # size of the key in bits (ex. 4096)
 
 # The ECS space reclaimer configuration specification
 spaceReclaimer:
@@ -394,6 +413,27 @@ managementGateway:
       - name: api
         port: 4443
         targetPort: 4443
+    type: ClusterIP
+    networkConnection:
+      # loadBalancerIP:     # load balancer IP of the connection
+      # nodePort:           # Node port addr of the connection
+      # externalHostnames:  # examples: "vsphere-host1.example.com" or "vsph1,vsph2.local"
+      # externalIPAddresses: # ex. "10.11.12.13" or "10.20.30.40,10.15.20.25"
+      # externalIPv6Addresses:
+      inheritFromManager: true # true if objectstore deployments to inherit cert from obj-manager
+      certificate:
+        rootCA: |-  # (optional)
+          <insert root CA here>
+        # intermediateCA:      # provide the intermediate CA here (optional)
+        # certificatePassword: # cert password (optional)
+        # privateKey:          # private key for this cert
+      certificateSigningRequest:
+        # commonName:          # common Name for this CSR
+        email: insertyouremail@example.com.local
+        # names:               # names used to sign this cert
+        # keyAlgorithm:        # algorithm use to generate the key (ex. RSA)
+        # keySize:             # size of the key in bits (ex. 4096)
+
 
 # Specify the service type for the managementGateway container. The default is a
 # "ClusterIP"
