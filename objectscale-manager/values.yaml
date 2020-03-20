@@ -165,7 +165,7 @@ vSpherePlugin:
       names:               # names used to sign this cert
         country:            USA
         state:              MA
-        locality:           Hopkington
+        locality:           Hopkinton
         organization:       Dell EMC
         organizationalUnit: ObjectScale
       keyAlgorithm: RSA       # algorithm use to generate the key (ex. RSA, DSA, ECSDA)
