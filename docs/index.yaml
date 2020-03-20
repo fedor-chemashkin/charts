@@ -439,7 +439,7 @@ entries:
   ecs-cluster:
   - apiVersion: v1
     appVersion: 0.23.0
-    created: "2020-03-18T00:17:16.274475595-04:00"
+    created: "2020-03-20T16:53:45.91744-05:00"
     dependencies:
     - condition: installMonitoringHelmDependency
       name: ecs-monitoring
@@ -447,7 +447,7 @@ entries:
       version: 0.0.1
     description: |
       Dell EMC ObjectScale is highly scalable, and high performance S3 compatible object storage platform.
-    digest: 160880bf430f62665fad4bc18db9b6b9c9ffe4aa64f9ff79562a87a465c76b54
+    digest: e95d5a92283baa66bf40962b6b144056528eb6cfcb7e96620a8c35693f361c88
     icon: https://avatars0.githubusercontent.com/u/12926680
     maintainers:
     - name: Dell EMC
@@ -1135,7 +1135,7 @@ entries:
       version: ~0.16.5
     description: |
       Dell EMC ObjectScale is highly scalable, and high performance S3 compatible object storage platform.
-    digest: 396f2f30d9967cf02ee2e748165c18fb0bf216d91dca9b1b8064680c06abaa5a
+    digest: e132f70b1c4b38ce2b311227c33594e636f2703b6bc29cd917d036696a812b53
     icon: https://avatars0.githubusercontent.com/u/12926680
     maintainers:
     - name: Dell EMC
