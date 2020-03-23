@@ -43,6 +43,10 @@ spec:
           env:
             - name: OBJSTORE_AVAILABLE_VERSIONS
               value: {{ .Values.objectStoreAvailableVersions | toJson | quote }}
+{{- if ne .Values.global.watchNamespace "" }}
+            - name: WATCH_NAMESPACE
+              value: {{ .Values.global.watchNamespace  }}
+{{- end }}
             - name: OPERATOR_NAME
               value: objectscale-operator
             - name: LOG_DIRECTION
