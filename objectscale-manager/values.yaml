@@ -39,7 +39,7 @@ replicaCount: 1
 # The image configured for the ObjectScale Manager
 image:
   repository: objectscale-operator
-  # tag: stable
+  tag: vinod 
   # pullPolicy: Always
 
 # A customer provided log server can be used for external log aggregation.
@@ -129,20 +129,17 @@ vSpherePlugin:
     repository: ecs-flex-vsphere-plugin
     # tag: stable
     # pullPolicy: Always
-
   service:
     # Type of Kubernetes service to create: ClusterIP, NodePort, or LoadBalancer
     type: ClusterIP
 
     # Specify the service port configuration for the vSpherePlugin service
     ports:
-      - name: api
-        port: 4443
-        targetPort: 4443
-
+    - name: api
+      port: 4443
+      targetPort: 4443
     # loadBalancerIP:     # select specific load balancer IP of the connection
     # nodePort:           # select specific node port for the connection
-
     # externalHostnames:
     #   - objectscale-vsp.example.com
     # externalIPAddresses:
@@ -152,10 +149,8 @@ vSpherePlugin:
     #   - 2001:0db8:0000:0000:0000:0000:0000:0001
 
   tls:
-
     # Type of certificate signing: SelfSigned, KubernetesSigned, or ExternallySigned
     certificateType: SelfSigned
-
     certificate: {}
       # publicKey: < server side customer certificate>
       # privateKey: <private key for server side cert>
@@ -163,7 +158,6 @@ vSpherePlugin:
       # authority: |-  # (optional)
       #   rootCA: xxxx
       #   intermediateCA:      # provide the intermediate CA here (optional)
-
     signingRequest:
       # commonName:        # override common Name for this CSR.  Defaults to cluster.local FQDN.
       # email: insertyouremail@example.com.local
