@@ -1,8 +1,8 @@
 ---
 apiVersion: v1
-kind: Service
+kind: ServiceAccount
 metadata:
-  name: objectscale-graphql
+  name: objectscale-api
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: objectscale-manager
@@ -15,11 +15,7 @@ metadata:
     release: {{ .Release.Name}}
     operator: objectscale-operator
     product: objectscale
-spec:
-  type: {{ .Values.graphql.service.type }}
-  selector:
-    app.kubernetes.io/name: objectscale-manager
-    app.kubernetes.io/component: objectscale-graphql
-  ports:
-    - port: {{ .Values.graphql.port }}
-      name: http
+{{- if .Values.global.registrySecret }}
+imagePullSecrets:
+  - name: {{ .Values.global.registrySecret }}
+{{- end }}
