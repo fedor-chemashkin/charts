@@ -28,6 +28,9 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: objectscale-operator
+{{- if ne .Values.global.watchNamespace "" }}
+  namespace: {{ .Release.Namespace }}
+{{- end }}
   labels:
     app.kubernetes.io/name: objectscale-manager
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -127,6 +130,9 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: service-account-objectscale-operator
+{{- if ne .Values.global.watchNamespace "" }}
+  namespace: {{ .Release.Namespace }}
+{{- end }}
   labels:
     app.kubernetes.io/name: objectscale-manager
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -141,7 +147,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: objectscale-operator
-{{- if eq .Values.global.watchNamespace "" }}
+{{- if ne .Values.global.watchNamespace "" }}
   namespace: {{ .Release.Namespace }}
 {{- end }}
 roleRef:
