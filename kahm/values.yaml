@@ -13,7 +13,7 @@ global:
   registry: emccorp
 
   # Default: "" == Watch ALL namespaces
-  watchNamespace: ""
+  watchAllNamespaces: true
 
 # The default docker tag and pull policy for the KAHM
 tag: 1.1.0-1
