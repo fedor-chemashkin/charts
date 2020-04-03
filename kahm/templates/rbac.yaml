@@ -20,7 +20,6 @@ metadata:
 {{- if ne .Values.global.watchAllNamespaces true }}
   namespace: {{ .Release.Namespace }}
 {{- end }}
-{{- if .Values.global.registrySecret }}
   labels:
     release: {{ .Release.Name }}
 rules:
