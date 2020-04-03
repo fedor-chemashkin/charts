@@ -4,7 +4,7 @@ highly scalable, private, S3-compatible object storage.
 
 Your release is named {{ .Release.Name }}.
 
-{{- if .Values.vSpherePlugin.enabled }}
+{{- if (eq .Values.VMwarePersistentService true) }}
 Congratulations! You've enabled the vSphere Plugin, so you can manage this installation
 directly from vCenter.  To enable the plug-in, add your vCenter details with these
 environment variables:

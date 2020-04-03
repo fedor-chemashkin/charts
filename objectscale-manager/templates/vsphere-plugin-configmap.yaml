@@ -1,9 +1,10 @@
-{{- if .Values.vSpherePlugin.enabled }}
+{{- if (eq .Values.VMwarePersistentService true) }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: objectscale-vsphere-plugin
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: objectscale-manager
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -22,5 +23,47 @@ data:
     }
     upstream decks {
       server {{ .Values.decks.supportStore.service.name }}:{{ .Values.decks.supportStore.service.port }};
+    }
+  nginx.conf: |
+    events {
+      worker_connections  4096;  ## Default: 1024
+    }  ​
+    http {
+        include /etc/nginx/mime.types;
+        include /conf/upstream.conf;
+        # log_format postdata '$remote_addr - $remote_user [$time_local] '
+        #                '"$request" $status $bytes_sent '
+        #                '"$http_referer" "$http_user_agent" "$request_body" "$sent_http_authorization"';  ​
+        server {
+            listen       4443;
+            server_name  localhost;  ​
+            ssl on;
+            ssl_protocols        TLSv1.2;
+            ssl_ciphers          AES:!ADH;
+            ssl_certificate /etc/nginx/ssl/cert.crt;
+            ssl_certificate_key /etc/nginx/ssl/cert.key;  ​
+            location /wcp/login {
+                proxy_pass_request_headers on;
+                proxy_pass_request_body on;
+                # access_log /var/log/nginx/nginx_login_debug.log postdata;
+                proxy_pass https://kube-apiserver-lb-svc.kube-system.svc.cluster.local:443/wcp/login;
+            }  ​
+            location /rest/saml-hook {
+                proxy_pass_request_headers on;
+                proxy_pass_request_body on;
+                # access_log /var/log/nginx/nginx_saml_debug.log postdata;
+                proxy_pass https://kube-apiserver-lb-svc.kube-system.svc.cluster.local:443/wcp/vsphere-ui-saml-hook;
+            }  ​
+            location /graphql {
+                proxy_pass http://graphql;
+            }  ​
+            # location /data {
+            #     proxy_pass https://decks;
+            # }  ​
+            location / {
+                root   /usr/share/nginx/html;
+                index  index.html index.htm;
+            }
+        }
     }
 {{- end }}

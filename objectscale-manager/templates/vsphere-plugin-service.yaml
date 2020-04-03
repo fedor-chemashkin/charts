@@ -1,9 +1,10 @@
-{{- if .Values.vSpherePlugin.enabled }}
+{{- if (eq .Values.VMwarePersistentService true) }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: objectscale-vsphere-plugin
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: objectscale-manager
     app.kubernetes.io/instance: {{ .Release.Name }}

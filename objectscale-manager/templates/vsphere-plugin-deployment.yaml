@@ -1,9 +1,10 @@
-{{- if .Values.vSpherePlugin.enabled }}
+{{- if (eq .Values.VMwarePersistentService true) }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: objectscale-vsphere-plugin
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: objectscale-manager
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -39,6 +40,9 @@ spec:
         - name: config-volume
           configMap:
             name: objectscale-vsphere-plugin
+        - name: certificate
+          secret:
+            secretName: flex-plugin-secret
       containers:
         - name: objectscale-vsphere-plugin
           image: {{ .Values.global.registry }}/{{ .Values.vSpherePlugin.image.repository }}:{{ default .Values.tag .Values.vSpherePlugin.image.tag }}
@@ -47,6 +51,12 @@ spec:
               value: objectscale-operator
           imagePullPolicy: {{ default .Values.pullPolicy .Values.vSpherePlugin.image.pullPolicy }}
           volumeMounts:
-            - mountPath: /conf
-              name: config-volume
+            - name: config-volume
+              mountPath: /conf
+              subPath: upstream.conf
+            - name: config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: certificate
+              mountPath: /etc/nginx/ssl
 {{- end }}
