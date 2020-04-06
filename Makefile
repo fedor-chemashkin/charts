@@ -105,13 +105,13 @@ create-temp-package:
 	mkdir -p ${TEMP_PACKAGE}
 
 copy-crds:
-	cp -R objectscale-manager/crds/ ${TEMP_PACKAGE}
-	cp -R atlas-operator/crds/ ${TEMP_PACKAGE}
-	cp -R zookeeper-operator/crds/ ${TEMP_PACKAGE}
+	cp -R objectscale-manager/crds ${TEMP_PACKAGE}
+	cp -R atlas-operator/crds ${TEMP_PACKAGE}
+	cp -R zookeeper-operator/crds ${TEMP_PACKAGE}
 
 create-manifest:
 	helm template objectscale-manager ./objectscale-manager -n ${NAMESPACE} \
 	--set VMwarePersistentService=true -f objectscale-manager/values.yaml >> ${TEMP_PACKAGE}/${MANIFEST}
 
 archive-package:
-	tar -zcvf ${PACKAGE_NAME} ${TEMP_PACKAGE}*
+	tar -zcvf ${PACKAGE_NAME} ${TEMP_PACKAGE}/*
