@@ -7,6 +7,11 @@ CHARTS := ecs-cluster objectscale-manager mongoose zookeeper-operator atlas-oper
 DECKSCHARTS := decks kahm srs-gateway dks-testapp dellemc-license service-pod
 FLEXCHARTS := ecs-cluster objectscale-manager zookeeper-operator
 
+# packaging
+TEMP_PACKAGE := temp_package
+MANIFEST     := objectscale-manager.yaml
+PACKAGE_NAME := charts-package.tgz
+NAMESPACE    = dellemc-objectscale-system
 test:
 	for CHART in ${CHARTS}; do \
 		set -x ; \
@@ -94,3 +99,19 @@ build:
 	if [ "$${REINDEX}" -eq "1" ]; then \
 		cd docs && helm repo index . ; \
 	fi
+
+package: create-temp-package copy-crds create-manifest archive-package
+create-temp-package:
+	mkdir -p ${TEMP_PACKAGE}
+
+copy-crds:
+	cp -R objectscale-manager/crds/ ${TEMP_PACKAGE}
+	cp -R atlas-operator/crds/ ${TEMP_PACKAGE}
+	cp -R zookeeper-operator/crds/ ${TEMP_PACKAGE}
+
+create-manifest:
+	helm template objectscale-manager ./objectscale-manager -n ${NAMESPACE} \
+	--set VMwarePersistentService=true -f objectscale-manager/values.yaml >> ${TEMP_PACKAGE}/${MANIFEST}
+
+archive-package:
+	tar -zcvf ${PACKAGE_NAME} ${TEMP_PACKAGE}*
