@@ -13,6 +13,7 @@ MANIFEST     := objectscale.yaml
 PACKAGE_NAME := objectscale-charts-package.tgz
 VSPHERE_CHARTS_CRDS := objectscale-manager atlas-operator zookeeper-operator kahm decks
 VSPHERE_CHARTS := objectscale-manager kahm decks
+REPO := emccorp
 
 NAMESPACE    = dellemc-objectscale-system
 
@@ -104,20 +105,22 @@ build:
 		cd docs && helm repo index . ; \
 	fi
 
+
 package: create-temp-package copy-crds create-manifest archive-package
+
 create-temp-package:
 	mkdir -p ${TEMP_PACKAGE}
 
 copy-crds:
 	for VCHART in ${VSPHERE_CHARTS_CRDS}; do \
-		cp -Rp $$VCHART/crds ${TEMP_PACKAGE} ; \
-	done
+		cp -Rp $${VCHART}/crds ${TEMP_PACKAGE} ; \
+	done ;
 
 create-manifest:
-	rm -f ${PACKAGE_NAME} ${TEMP_PACKAGE}/${MANIFEST} \
+	rm -f ${PACKAGE_NAME} ${TEMP_PACKAGE}/${MANIFEST} 
 	for CHART in ${VSPHERE_CHARTS}; do \
-		helm template $$CHART ./$$CHART -n ${NAMESPACE} --set global.platform=VMware -f objectscale-manager/values.yaml >> ${TEMP_PACKAGE}/${MANIFEST} ; \
-	done
+		helm template $${CHART} ./$${CHART} -n ${NAMESPACE} --set global.platform=VMware --set global.registry=$${REPO} -f $${CHART}/values.yaml >> ${TEMP_PACKAGE}/${MANIFEST} ; \
+	done ;
 
 archive-package:
 	tar -zcvf ${PACKAGE_NAME} ${TEMP_PACKAGE}/*
