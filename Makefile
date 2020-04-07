@@ -9,9 +9,13 @@ FLEXCHARTS := ecs-cluster objectscale-manager zookeeper-operator
 
 # packaging
 TEMP_PACKAGE := temp_package
-MANIFEST     := objectscale-manager.yaml
-PACKAGE_NAME := charts-package.tgz
+MANIFEST     := objectscale.yaml
+PACKAGE_NAME := objectscale-charts-package.tgz
+VSPHERE_CHARTS_CRDS := objectscale-manager atlas-operator zookeeper-operator kahm decks
+VSPHERE_CHARTS := objectscale-manager kahm decks
+
 NAMESPACE    = dellemc-objectscale-system
+
 test:
 	for CHART in ${CHARTS}; do \
 		set -x ; \
@@ -105,13 +109,15 @@ create-temp-package:
 	mkdir -p ${TEMP_PACKAGE}
 
 copy-crds:
-	cp -R objectscale-manager/crds ${TEMP_PACKAGE}
-	cp -R atlas-operator/crds ${TEMP_PACKAGE}
-	cp -R zookeeper-operator/crds ${TEMP_PACKAGE}
+	for VCHART in ${VSPHERE_CHARTS_CRDS}; do \
+		cp -Rp $$VCHART/crds ${TEMP_PACKAGE} ; \
+	done
 
 create-manifest:
-	helm template objectscale-manager ./objectscale-manager -n ${NAMESPACE} \
-	--set VMwarePersistentService=true -f objectscale-manager/values.yaml >> ${TEMP_PACKAGE}/${MANIFEST}
+	rm -f ${PACKAGE_NAME} ${TEMP_PACKAGE}/${MANIFEST} \
+	for CHART in ${VSPHERE_CHARTS}; do \
+		helm template $$CHART ./$$CHART -n ${NAMESPACE} --set global.platform=VMware -f objectscale-manager/values.yaml >> ${TEMP_PACKAGE}/${MANIFEST} ; \
+	done
 
 archive-package:
 	tar -zcvf ${PACKAGE_NAME} ${TEMP_PACKAGE}/*
