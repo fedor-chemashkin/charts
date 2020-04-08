@@ -1,4 +1,4 @@
-{{- if or (eq .Values.global.platform "VMware") (eq .Values.global.platform "Vmware-PKS") }}
+{{- if or (eq .Values.global.platform "VMware") (eq .Values.global.platform "VMware-PKS") }}
 ---
 apiVersion: v1
 kind: Service
