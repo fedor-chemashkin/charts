@@ -1,4 +1,4 @@
-{{- if (eq .Values.VMwarePersistentService true) }}
+{{- if or (eq .Values.global.platform "VMware") (eq .Values.global.platform "Vmware-PKS") }}
 ---
 apiVersion: v1
 kind: ConfigMap
