@@ -18,6 +18,8 @@ NAMESPACE         = dellemc-objectscale-system
 clean: clean-package
 
 test:
+	@echo "looking for yamllint"
+	which yamllint
 	for CHART in ${CHARTS}; do \
 		set -x ; \
 		helm lint $$CHART ; \
