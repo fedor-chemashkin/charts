@@ -65,7 +65,7 @@ sed -i 's/[[:space:]]*$//' temp_package/yaml/${vsphere7_plugin_file}
 sed -i "s/$namespace/{{ .service.namespace }}/g" temp_package/yaml/${vsphere7_plugin_file}
 
 ## Template registry from supervisor service input
-sed -i "s/ image: .*\//image: {{ .Values.registryName }}\//g" temp_package/yaml/${vsphere7_plugin_file}
+sed -i "s/image: .*\//image: {{ .Values.registryName }}\//g" temp_package/yaml/${vsphere7_plugin_file}
 
 cp -p ./vmware/deploy-objectscale-plugin.sh temp_package/scripts 
 
