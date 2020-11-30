@@ -58,11 +58,14 @@ $(awk '{printf "%4s%s\n", "", $0}' temp_package/yaml/decks.yaml)
         $(sed "s/^/        /" ./dellemc_eula.txt)
 EOT
 
-## Remove trailing whitespaace
+## Remove trailing whitespace
 sed -i 's/[[:space:]]*$//' temp_package/yaml/${vsphere7_plugin_file}
 
 ## Template the namespace value
 sed -i "s/$namespace/{{ .service.namespace }}/g" temp_package/yaml/${vsphere7_plugin_file}
+
+## Template registry from supervisor service input
+sed -i "s/ image: .*\//image: {{ .Values.registryName }}\//g" temp_package/yaml/${vsphere7_plugin_file}
 
 cp -p ./vmware/deploy-objectscale-plugin.sh temp_package/scripts 
 
