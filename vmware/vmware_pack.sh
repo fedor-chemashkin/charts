@@ -65,7 +65,7 @@ sed -i 's/[[:space:]]*$//' temp_package/yaml/${vsphere7_plugin_file}
 sed -i "s/$namespace/{{ .service.namespace }}/g" temp_package/yaml/${vsphere7_plugin_file}
 
 ## Template registry from supervisor service input
-sed -i "s/image: .*\//image: {{ .Values.registryName }}\//g" temp_package/yaml/${vsphere7_plugin_file}
+sed -i "s/ image: .*\//image: {{ .Values.registryName }}\//g" temp_package/yaml/${vsphere7_plugin_file}
 
 cp -p ./vmware/deploy-objectscale-plugin.sh temp_package/scripts 
 
@@ -74,7 +74,7 @@ sed -i "s/SERVICE_ID/${service_id}/" temp_package/scripts/deploy-objectscale-plu
   
 ## Template the registry username and password value
 sed -i "s/registryusernameplaceholder/{{ .Values.registryUsername }}/" temp_package/yaml/${vsphere7_plugin_file}
-sed -i "s/registrypasswordplaceholder/{{ .Values.registryPassword }}/" temp_package/yaml/${vsphere7_plugin_file}
+sed -i "s/registrypasswordplaceholder/{{ .Values.registryPasswd }}/" temp_package/yaml/${vsphere7_plugin_file}
 
 cat temp_package/yaml/${vsphere7_plugin_file} >> temp_package/scripts/deploy-objectscale-plugin.sh 
 echo "EOF" >> temp_package/scripts/deploy-objectscale-plugin.sh
