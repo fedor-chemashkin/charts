@@ -1,4 +1,4 @@
-- description: "Fluxd doesn't respond for the last 30 minutes"
+- description: "Fluxd has not responded for the last 30 minutes"
   name: "MonitoringFluxd"
   defaultAutoClearTimeOut: 60
   issueCategory: Auto
